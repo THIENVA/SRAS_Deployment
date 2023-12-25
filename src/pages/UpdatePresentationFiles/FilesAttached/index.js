@@ -1,0 +1,102 @@
+import { Clear, UploadFile } from '@mui/icons-material'
+import {
+    Box,
+    Button,
+    IconButton,
+    InputLabel,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Typography,
+} from '@mui/material'
+
+import TitleSection from '../TitleSection'
+
+import { AppStyles } from '~/constants/colors'
+
+const FilesAttached = ({ filesAttached, handleUploadFiles, handleDeleteFile }) => {
+    return (
+        <Box mb={3}>
+            <TitleSection>FILES</TitleSection>
+            <Box mt={2}>
+                <Typography variant="body2" sx={{ color: AppStyles.colors['#ffa500'] }}>
+                    You can upload from 1 to 3 files. Maximum file size is 10 Mb. We accept
+                    <strong> doc, docx, pdf</strong> formats.
+                </Typography>
+                {filesAttached.length !== 0 && (
+                    <TableContainer sx={{ my: 2 }} component={Paper}>
+                        <Table
+                            sx={{
+                                width: '100%',
+                                overflow: 'hidden',
+                            }}
+                        >
+                            <TableHead>
+                                <TableRow
+                                    sx={{
+                                        'td, th': {
+                                            borderRight: '1px solid #cecdcd',
+                                            py: 1,
+                                            px: 2,
+                                        },
+                                    }}
+                                >
+                                    <TableCell sx={{ fontWeight: 'bold' }}>File Name</TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }}>Size (KB)</TableCell>
+                                    <TableCell align="left" sx={{ fontWeight: 'bold' }}>
+                                        Upload date
+                                    </TableCell>
+                                    <TableCell align="center" sx={{ fontWeight: 'bold' }}>
+                                        Action
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody sx={{ backgroundColor: AppStyles.colors['#F5F5F5'] }}>
+                                {filesAttached.map((file) => (
+                                    <TableRow
+                                        hover
+                                        sx={{
+                                            'td, th': {
+                                                borderRight: '1px solid #cecdcd',
+                                                py: 1,
+                                                px: 2,
+                                            },
+                                        }}
+                                        key={file.id}
+                                    >
+                                        <TableCell>{file.name}</TableCell>
+                                        <TableCell>{file.size}</TableCell>
+                                        <TableCell align="left">{file.date}</TableCell>
+                                        <TableCell align="center">
+                                            <IconButton size="small" onClick={() => handleDeleteFile(file.id)}>
+                                                <Clear fontSize="small" />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+                <InputLabel htmlFor="upload" sx={{ display: 'inline-block', mt: 1 }}>
+                    <input
+                        onChange={handleUploadFiles}
+                        required
+                        style={{ opacity: 0, maxWidth: 0.5 }}
+                        id="upload"
+                        type="file"
+                    />
+                    <Button variant="outlined" component="span" startIcon={<UploadFile />} size="small">
+                        Upload Files
+                    </Button>
+                </InputLabel>
+            </Box>
+        </Box>
+    )
+}
+
+export default FilesAttached

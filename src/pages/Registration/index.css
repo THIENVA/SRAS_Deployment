@@ -1,0 +1,35 @@
+.main {
+  justify-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+}
+
+.grid-item {
+  padding: 20px;
+}
+
+.form{
+  margin: 20px;
+}
+.form-header{
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+}
+@media screen and (max-width: 600px) {
+  .main {
+    justify-content: center;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .grid-container {
+    display: flex;
+   
+  }
+}
